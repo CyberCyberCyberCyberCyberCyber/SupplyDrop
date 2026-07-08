@@ -1,0 +1,19 @@
+# Packer
+
+    ## Virtualbox-ISO Integration
+    https://developer.hashicorp.com/packer/integrations/hashicorp/virtualbox/latest/components/builder/iso
+
+
+# Windows Autounattend
+
+    ## Unattended Windows Reference (Reference for Autounattend.xml)
+    https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/
+
+    ## Partition Setup for UEFI
+    https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-8.1-and-8/hh824839(v=win.10)
+
+    ## Example Autounattend config for partitions
+    https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-8.1-and-8/hh825702(v=win.10)
+
+    ## Automate OOBE
+    https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/automate-oobe

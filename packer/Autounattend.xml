@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend"
+	xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+	<settings pass="offlineServicing"></settings>
+	<settings pass="windowsPE">
+		<component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64"
+			publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<UILanguage>en-US</UILanguage>
+		</component>
+		<component name="Microsoft-Windows-Setup" processorArchitecture="amd64"
+			publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<UserData>
+				<AcceptEula>true</AcceptEula>
+			</UserData>
+
+			<!-- Taken from the following link (had to put <ModifyPartition> tags around partition
+			3, otherwise it would lead to an error / not progress ...)
+			https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-8.1-and-8/hh825702(v=win.10) -->
+			<!-- For partition requirements on UEFI see:
+			https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-8.1-and-8/hh824839(v=win.10) -->
+			<DiskConfiguration>
+
+				<Disk wcm:action="add">
+					<DiskID>0</DiskID>
+					<WillWipeDisk>true</WillWipeDisk>
+					<CreatePartitions>
+
+						<!-- Windows RE Tools partition -->
+						<CreatePartition wcm:action="add">
+							<Order>1</Order>
+							<Type>Primary</Type>
+							<Size>300</Size>
+						</CreatePartition>
+
+						<!-- System partition (ESP) -->
+						<CreatePartition wcm:action="add">
+							<Order>2</Order>
+							<Type>EFI</Type>
+							<Size>100</Size>
+							<!-- Note: for Advanced Format Generation One drives, change to size=260 -->
+						</CreatePartition>
+
+						<!-- Microsoft reserved partition (MSR) -->
+						<CreatePartition wcm:action="add">
+							<Order>3</Order>
+							<Type>MSR</Type>
+							<Size>128</Size>
+						</CreatePartition>
+
+						<!-- Windows partition -->
+						<CreatePartition wcm:action="add">
+							<Order>4</Order>
+							<Type>Primary</Type>
+							<Extend>true</Extend>
+						</CreatePartition>
+					</CreatePartitions>
+
+					<ModifyPartitions>
+						<!-- Windows RE Tools partition -->
+						<ModifyPartition wcm:action="add">
+							<Order>1</Order>
+							<PartitionID>1</PartitionID>
+							<Label>WINRE</Label>
+							<Format>NTFS</Format>
+							<TypeID>de94bba4-06d1-4d40-a16a-bfd50179d6ac</TypeID>
+						</ModifyPartition>
+
+						<!-- System partition (ESP) -->
+						<ModifyPartition wcm:action="add">
+							<Order>2</Order>
+							<PartitionID>2</PartitionID>
+							<Label>System</Label>
+							<Format>FAT32</Format>
+						</ModifyPartition>
+
+						<!-- MSR partition does not need to be modified -->
+						<ModifyPartition wcm:action="add">
+							<Order>3</Order>
+							<PartitionID>3</PartitionID>
+						</ModifyPartition>
+
+
+						<!-- Windows partition -->
+						<ModifyPartition wcm:action="add">
+							<Order>4</Order>
+							<PartitionID>4</PartitionID>
+							<Label>Windows</Label>
+							<Letter>C</Letter>
+							<Format>NTFS</Format>
+						</ModifyPartition>
+					</ModifyPartitions>
+				</Disk>
+				<WillShowUI>OnError</WillShowUI>
+			</DiskConfiguration>
+
+			<ImageInstall>
+				<OSImage>
+					<InstallTo>
+						<DiskID>0</DiskID>
+						<PartitionID>4</PartitionID>
+					</InstallTo>
+				</OSImage>
+			</ImageInstall>
+
+
+			<ImageInstall>
+				<OSImage>
+					<InstallToAvailablePartition>true</InstallToAvailablePartition>
+				</OSImage>
+			</ImageInstall>
+		</component>
+	</settings>
+	<settings pass="generalize"></settings>
+	<settings pass="specialize"></settings>
+	<settings pass="auditSystem"></settings>
+	<settings pass="auditUser"></settings>
+	<settings pass="oobeSystem">
+		<component name="Microsoft-Windows-International-Core" processorArchitecture="amd64"
+			publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<InputLocale>0409:00000409</InputLocale>
+			<SystemLocale>en-US</SystemLocale>
+			<UILanguage>en-US</UILanguage>
+			<UserLocale>en-US</UserLocale>
+		</component>
+	</settings>
+</unattend>
