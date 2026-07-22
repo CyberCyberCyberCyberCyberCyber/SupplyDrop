@@ -122,5 +122,36 @@
 			<UILanguage>en-US</UILanguage>
 			<UserLocale>en-US</UserLocale>
 		</component>
+		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64"
+			publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+			<UserAccounts>
+				<LocalAccounts>
+					<LocalAccount wcm:action="add">
+						<Name>Admin</Name>
+						<DisplayName>Admin</DisplayName>
+						<Group>Administrators</Group>
+						<Password>
+							<Value>admin</Value>
+							<PlainText>true</PlainText>
+						</Password>
+					</LocalAccount>
+					<LocalAccount wcm:action="add">
+						<Name>User</Name>
+						<DisplayName>User</DisplayName>
+						<Group>Users</Group>
+						<Password>
+							<Value>user</Value>
+							<PlainText>true</PlainText>
+						</Password>
+					</LocalAccount>
+				</LocalAccounts>
+			</UserAccounts>
+			<OOBE>
+				<ProtectYourPC>3</ProtectYourPC>
+				<HideEULAPage>true</HideEULAPage>
+				<HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+				<HideOnlineAccountScreens>false</HideOnlineAccountScreens>
+			</OOBE>
+		</component>
 	</settings>
 </unattend>

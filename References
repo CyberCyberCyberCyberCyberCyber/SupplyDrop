@@ -17,3 +17,16 @@
 
     ## Automate OOBE
     https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/automate-oobe
+
+
+
+# For Debugging
+
+    ## List partitions / filesystems
+    virt-filesystems -a /path/to/disk.vdi --all --long
+
+    ## Mount .vdi file with guestmount
+    guestmount -a /path/to/disk.vdi -m /dev/sda1 --rw /tmp/vdi-mount
+
+    ## Unmount
+    guestunmount ~/vdi-mount
